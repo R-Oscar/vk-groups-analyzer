@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // export default class CommunitiesSearchResults extends Component {
 //   render() {
@@ -8,6 +9,20 @@ import React from 'react';
 //   }
 // }
 
-const CommunitiesSearchResults = () => <div>Results here</div>;
+const CommunitiesSearchResults = ({ results }) => <div>{results}</div>;
+
+CommunitiesSearchResults.defaultProps = {
+  results: {},
+};
+
+CommunitiesSearchResults.propTypes = {
+  results: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      photo: PropTypes.string,
+    }),
+  ),
+};
 
 export default CommunitiesSearchResults;
