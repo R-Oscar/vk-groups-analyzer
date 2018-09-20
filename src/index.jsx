@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import './index.css';
 
@@ -22,10 +23,12 @@ const results = [
 class App extends Component {
   render() {
     return (
-      <div className="wrapper">
-        <CommunitiesSearchInput />
-        <CommunitiesSearchResults results={results} />
-      </div>
+      <Router>
+        <div className="wrapper">
+          <CommunitiesSearchInput />
+          <CommunitiesSearchResults results={results} />
+        </div>
+      </Router>
     );
   }
 }

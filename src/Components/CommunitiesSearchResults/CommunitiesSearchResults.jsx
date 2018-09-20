@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 // export default class CommunitiesSearchResults extends Component {
 //   render() {
@@ -21,7 +22,9 @@ const CommunitiesSearchResults = ({ results }) => (
       {results.map(
         result => (
           <tr key={result.id}>
-            <td>{result.name}</td>
+            <td>
+              <Link to={`/c/${result.id}`}>{result.name}</Link>
+            </td>
             <td>
               <img src={result.photo} alt={result.name} />
             </td>
