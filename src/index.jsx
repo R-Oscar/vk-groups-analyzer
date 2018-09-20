@@ -26,7 +26,7 @@ class App extends Component {
     super(props);
     this.state = {
       results: [],
-      input: '',
+      input: 'hello man!',
     };
   }
 
@@ -35,10 +35,11 @@ class App extends Component {
   }
 
   render() {
+    const { input } = this.state;
     return (
       <Router>
         <div className="wrapper">
-          <CommunitiesSearchInput />
+          <CommunitiesSearchInput input={input} />
           <Route path="/" exact render={() => <CommunitiesSearchResults results={results} />} />
           <Route
             path="/c/:communityId"
