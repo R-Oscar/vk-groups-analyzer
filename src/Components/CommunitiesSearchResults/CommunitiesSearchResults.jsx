@@ -9,10 +9,31 @@ import PropTypes from 'prop-types';
 //   }
 // }
 
-const CommunitiesSearchResults = ({ results }) => <div>{results}</div>;
+const CommunitiesSearchResults = ({ results }) => (
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Avatar</th>
+      </tr>
+    </thead>
+    <tbody>
+      {results.map(
+        result => (
+          <tr key={result.id}>
+            <td>{result.name}</td>
+            <td>
+              <img src={result.photo} alt={result.name} />
+            </td>
+          </tr>
+        ),
+      )}
+    </tbody>
+  </table>
+);
 
 CommunitiesSearchResults.defaultProps = {
-  results: {},
+  results: [],
 };
 
 CommunitiesSearchResults.propTypes = {

@@ -5,6 +5,7 @@
     },
     "rules": {
     	"linebreak-style": ["error", "windows"],
-    	"react/prefer-stateless-function": [1]
+    	"react/prefer-stateless-function": [1],
+      "max-len": ["error", { "code": 120 }]
     }
 }
