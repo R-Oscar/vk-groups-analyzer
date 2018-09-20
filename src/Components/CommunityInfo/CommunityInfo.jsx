@@ -10,9 +10,9 @@ const data = {
 };
 
 export default class CommunityInfo extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     const { communityId, history } = this.props;

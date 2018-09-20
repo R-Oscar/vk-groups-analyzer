@@ -1,18 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { DebounceInput } from 'react-debounce-input';
 import './CommunitiesSearchInput.css';
 
-export default class CommunitiesSearchInput extends Component {
-  render() {
-    const { input, handler } = this.props;
-    return (
-      <fieldset className="search-field">
-        <input type="text" className="search-field__input" value={input} onChange={handler} />
-        <button type="submit" className="search-field__button">OK</button>
-      </fieldset>
-    );
-  }
-}
+const CommunitiesSearchInput = ({ input, handler }) => (
+  <fieldset className="search-field">
+    <DebounceInput className="search-field__input" value={input} onChange={handler} debounceTimeout={300} />
+    <button type="submit" className="search-field__button">OK</button>
+  </fieldset>
+);
 
 CommunitiesSearchInput.defaultProps = {
   input: '',
@@ -22,3 +18,5 @@ CommunitiesSearchInput.propTypes = {
   input: PropTypes.string,
   handler: PropTypes.func.isRequired,
 };
+
+export default CommunitiesSearchInput;
