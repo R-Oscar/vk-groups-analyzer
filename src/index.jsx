@@ -34,12 +34,18 @@ class App extends Component {
     // console.log(fetch);
   }
 
+  handleInputChange = (e) => {
+    this.setState({
+      input: e.target.value,
+    });
+  };
+
   render() {
     const { input } = this.state;
     return (
       <Router>
         <div className="wrapper">
-          <CommunitiesSearchInput input={input} />
+          <CommunitiesSearchInput input={input} handler={this.handleInputChange} />
           <Route path="/" exact render={() => <CommunitiesSearchResults results={results} />} />
           <Route
             path="/c/:communityId"
