@@ -27,8 +27,11 @@ class App extends Component {
       <Router>
         <div className="wrapper">
           <CommunitiesSearchInput />
-          <CommunitiesSearchResults results={results} />
-          <Route path="/c/:communityId" component={CommunityInfo} />
+          <Route path="/" exact render={() => <CommunitiesSearchResults results={results} />} />
+          <Route
+            path="/c/:communityId"
+            render={props => <CommunityInfo communityId={props.match.params.communityId} {...props} />}
+          />
         </div>
       </Router>
     );
