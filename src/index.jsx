@@ -22,6 +22,18 @@ const results = [
 ];
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      results: [],
+      input: '',
+    };
+  }
+
+  componentDidMount() {
+    // console.log(fetch);
+  }
+
   render() {
     return (
       <Router>

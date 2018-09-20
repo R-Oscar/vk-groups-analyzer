@@ -9,14 +9,23 @@ const data = {
   females: 50,
 };
 
-const CommunityInfo = ({ communityId, history }) => (
-  <div>
-    {communityId}
-    <h1>{data.name}</h1>
-    <img src={data.photo} alt={data.name} />
-    <button type="button" onClick={history.goBack}>Назад</button>
-  </div>
-);
+export default class CommunityInfo extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { communityId, history } = this.props;
+    return (
+      <div>
+        {communityId}
+        <h1>{data.name}</h1>
+        <img src={data.photo} alt={data.name} />
+        <button type="button" onClick={history.goBack}>Назад</button>
+      </div>
+    );
+  }
+}
 
 // CommunityInfo.defaultProps = {
 //   match: {},
@@ -28,5 +37,3 @@ CommunityInfo.propTypes = {
     goBack: PropTypes.func.isRequired,
   }).isRequired,
 };
-
-export default CommunityInfo;
