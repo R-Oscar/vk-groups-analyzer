@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './index.css';
 
 import CommunitiesSearchInput from './Components/CommunitiesSearchInput/CommunitiesSearchInput';
 import CommunitiesSearchResults from './Components/CommunitiesSearchResults/CommunitiesSearchResults';
+import CommunityInfo from './Components/CommunityInfo/CommunityInfo';
 
 const results = [
   {
@@ -27,6 +28,7 @@ class App extends Component {
         <div className="wrapper">
           <CommunitiesSearchInput />
           <CommunitiesSearchResults results={results} />
+          <Route path="/c/:communityId" component={CommunityInfo} />
         </div>
       </Router>
     );
