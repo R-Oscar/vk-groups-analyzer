@@ -1,12 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DebounceInput } from 'react-debounce-input';
+// import { DebounceInput } from 'react-debounce-input';
 import './CommunitiesSearchInput.css';
+import TextField from '@material-ui/core/TextField';
 
 const CommunitiesSearchInput = ({ input, handler }) => (
   <fieldset className="search-field">
-    <DebounceInput className="search-field__input" value={input} onChange={handler} debounceTimeout={300} />
-    <button type="submit" className="search-field__button">OK</button>
+    <TextField
+      label="Поиск сообществ"
+      type="search"
+      margin="normal"
+      onChange={handler}
+      value={input}
+      className="search-field__input"
+    />
+    {/* <DebounceInput className="search-field__input" value={input} onChange={handler} debounceTimeout={300} /> */}
   </fieldset>
 );
 

@@ -42,7 +42,6 @@ class App extends Component {
       {
         q: e.target.value,
         count: 3,
-        offset: 3,
         v,
       },
       // TODO: добавить обработку ошибок
@@ -69,7 +68,7 @@ class App extends Component {
       <Router>
         <div className="wrapper">
           <CommunitiesSearchInput input={input} handler={this.handleInputChange} />
-          <Route path="/" exact render={() => <CommunitiesSearchResults results={results} />} />
+          <Route path="/" exact render={() => input === '' || <CommunitiesSearchResults results={results} />} />
           <Route
             path="/c/:communityId"
             render={props => <CommunityInfo inited={inited} communityId={props.match.params.communityId} {...props} />}
