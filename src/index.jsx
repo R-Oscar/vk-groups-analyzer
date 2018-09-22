@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import apiId from './config';
+import { apiId, v } from './config';
 
 import CommunitiesSearchInput from './Components/CommunitiesSearchInput/CommunitiesSearchInput';
 import CommunitiesSearchResults from './Components/CommunitiesSearchResults/CommunitiesSearchResults';
@@ -43,7 +43,7 @@ class App extends Component {
         q: e.target.value,
         count: 3,
         offset: 3,
-        v: 5.85,
+        v,
       },
       // TODO: добавить обработку ошибок
       ({ response }) => {

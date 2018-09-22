@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { v } from '../../config';
+
 export default class CommunityInfo extends React.Component {
   constructor(props) {
     super(props);
@@ -14,13 +16,14 @@ export default class CommunityInfo extends React.Component {
   }
 
   componentDidMount() {
+    const { inited, communityId } = this.props;
     /* eslint-disable */
-    this.props.inited || VK.init({ apiId: 6673569 });
+    inited || VK.init({ apiId: 6673569 });
     VK.Api.call(
       'groups.getById',
       {
-        group_id: 64977560,
-        v: 5.85,
+        group_id: communityId,
+        v,
       },
       ({ response }) => this.setState({
         community: {
@@ -56,4 +59,5 @@ CommunityInfo.propTypes = {
   history: PropTypes.shape({
     goBack: PropTypes.func.isRequired,
   }).isRequired,
+  inited: PropTypes.bool.isRequired,
 };
