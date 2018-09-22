@@ -16,6 +16,7 @@ class App extends Component {
     this.state = {
       results: [],
       input: '',
+      inited: false,
     };
   }
 
@@ -25,6 +26,9 @@ class App extends Component {
       apiId,
     });
     /* eslint-enable */
+    this.setState({
+      inited: true,
+    });
   }
 
   handleInputChange = async (e) => {
@@ -40,7 +44,8 @@ class App extends Component {
         count: 3,
         offset: 3,
         v: 5.85,
-      }, 
+      },
+      // TODO: добавить обработку ошибок
       ({ response }) => {
         const { count, items } = response;
 
@@ -59,7 +64,7 @@ class App extends Component {
   };
 
   render() {
-    const { results, input } = this.state;
+    const { results, input, inited } = this.state;
     return (
       <Router>
         <div className="wrapper">
@@ -67,7 +72,7 @@ class App extends Component {
           <Route path="/" exact render={() => <CommunitiesSearchResults results={results} />} />
           <Route
             path="/c/:communityId"
-            render={props => <CommunityInfo communityId={props.match.params.communityId} {...props} />}
+            render={props => <CommunityInfo inited={inited} communityId={props.match.params.communityId} {...props} />}
           />
         </div>
       </Router>
