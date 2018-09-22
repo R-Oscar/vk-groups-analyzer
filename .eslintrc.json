@@ -1,15 +1,15 @@
 {
-  "parser": "babel-eslint",
   "rules": {
     "strict": 0
   },
   "extends": "airbnb",
   "env": {
-  	"browser": true
+    "browser": true
   },
+  "parser": "babel-eslint",
   "rules": {
-  	"linebreak-style": ["error", "windows"],
-  	"react/prefer-stateless-function": [1],
+    "linebreak-style": ["error", "windows"],
+    "react/prefer-stateless-function": [1],
     "max-len": ["error", { "code": 120 }]
   }
 }
