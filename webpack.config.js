@@ -2,11 +2,16 @@ const path = require('path');
 
 module.exports = {
   entry: './src/index.jsx',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
+  },
   mode: 'development',
   devtool: 'source-map',
   devServer: {
-  	contentBase: './dist',
-    clientLogLevel: 'none'
+    contentBase: './dist',
+    clientLogLevel: 'none',
+    historyApiFallback: true // for correct react router work after refresh
   },
   module: {
     rules: [

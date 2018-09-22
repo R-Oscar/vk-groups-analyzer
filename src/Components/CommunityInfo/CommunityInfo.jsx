@@ -5,14 +5,25 @@ import PropTypes from 'prop-types';
 const data = {
   name: 'MDK',
   photo: 'https://pp.vk.me/c624722/v624722728/48e8f/g2Z9jU6qXVk.jpg',
-  males: 50,
-  females: 50,
 };
 
 export default class CommunityInfo extends React.Component {
   // constructor(props) {
   //   super(props);
   // }
+
+  componentDidMount() {
+    /* eslint-disable */
+    VK.Api.call(
+      'groups.getById',
+      {
+        groupId: 64977560,
+        v: 5.85,
+      },
+      ({ response }) => console.log(response)
+    );
+    /* eslint-enable */
+  }
 
   render() {
     const { communityId, history } = this.props;

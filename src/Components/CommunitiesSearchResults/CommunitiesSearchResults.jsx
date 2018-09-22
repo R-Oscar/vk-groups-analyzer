@@ -2,14 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-// export default class CommunitiesSearchResults extends Component {
-//   render() {
-//     return (
-//       <p>Results here</p>
-//     );
-//   }
-// }
-
 const CommunitiesSearchResults = ({ results }) => (
   <table>
     <thead>
