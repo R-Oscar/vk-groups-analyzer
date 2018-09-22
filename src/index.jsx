@@ -14,20 +14,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      results: [
-        {
-          id: 23148107,
-          name: 'MDK',
-          photo: 'https://pp.vk.me/c624722/v624722728/48e8f/g2Z9jU6qXVk.jpg',
-        },
-        {
-          id: 23148108,
-          name: 'MDK',
-          photo: 'https://pp.userapi.com/c845520/v845520552/e5fb8/HR5Yhglt9TQ.jpg?ava=1',
-        },
-      ],
+      results: [],
       input: '',
     };
+  }
+
+  componentDidMount() {
+    /* eslint-disable */
+    VK.init({
+      apiId,
+    });
+    /* eslint-enable */
   }
 
   handleInputChange = async (e) => {
@@ -36,19 +33,27 @@ class App extends Component {
     });
 
     /* eslint-disable */
-    VK.init({
-      apiId,
-    });
-
     VK.Api.call(
       'groups.search', 
       {
         q: e.target.value,
         count: 3,
         offset: 3,
-        v: 5.85
+        v: 5.85,
       }, 
-      r => console.log(r)
+      ({ response }) => {
+        const { count, items } = response;
+
+        this.setState({
+          results: items.map(item => (
+            {
+              id: item.id,
+              name: item.name,
+              photo: item.photo_50,
+            }
+          )),
+        });
+      }
     );
     /* eslint-enable */
   };
