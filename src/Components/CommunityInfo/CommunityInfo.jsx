@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
+import './CommunityInfo.css';
+
 import { v } from '../../config';
 
 export default class CommunityInfo extends React.Component {
@@ -36,15 +41,17 @@ export default class CommunityInfo extends React.Component {
   }
 
   render() {
-    const { communityId, history } = this.props;
+    const { history } = this.props;
     const { community } = this.state;
 
     return (
       <div>
-        {communityId}
-        <h1>{community.name}</h1>
+        {/* {communityId} */}
+        <Typography variant="display4" gutterBottom>
+          {community.name}
+        </Typography>
         <img src={community.photo} alt={community.name} />
-        <button type="button" onClick={history.goBack}>Назад</button>
+        <Button variant="contained" color="primary" onClick={history.goBack} className="back-button">Назад</Button>
       </div>
     );
   }
