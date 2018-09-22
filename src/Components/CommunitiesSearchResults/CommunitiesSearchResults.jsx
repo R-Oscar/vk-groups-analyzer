@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import './CommunitiesSearchResults.css';
+
 const CommunitiesSearchResults = ({ results }) => (
-  <table>
+  <table className="output-table">
     <thead>
       <tr>
         <th>Name</th>
