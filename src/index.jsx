@@ -2,20 +2,22 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import { apiId, v } from './config';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import './index.css';
+import debounce from 'lodash.debounce';
 
 import CommunitiesSearchInput from './Components/CommunitiesSearchInput/CommunitiesSearchInput';
 import CommunitiesSearchResults from './Components/CommunitiesSearchResults/CommunitiesSearchResults';
 import CommunityInfo from './Components/CommunityInfo/CommunityInfo';
 
-import './index.css';
+import { apiId, v } from './config';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       results: [],
-      input: '',
+      // input: '',
       inited: false,
     };
   }
@@ -32,9 +34,9 @@ class App extends Component {
   }
 
   handleInputChange = async (e) => {
-    this.setState({
-      input: e.target.value,
-    });
+    // this.setState({
+    //   input: e.target.value,
+    // });
 
     /* eslint-disable */
     VK.Api.call(
@@ -62,12 +64,21 @@ class App extends Component {
     /* eslint-enable */
   };
 
+  debounceEvent(...args) {
+    this.debouncedEvent = debounce(...args);
+    return (e) => {
+      e.persist();
+      return this.debouncedEvent(e);
+    };
+  }
+
   render() {
     const { results, input, inited } = this.state;
     return (
       <Router>
         <div className="wrapper">
-          <CommunitiesSearchInput input={input} handler={this.handleInputChange} />
+          <CssBaseline />
+          <CommunitiesSearchInput input={input} handler={this.debounceEvent(this.handleInputChange, 500)} />
           <Route path="/" exact render={() => input === '' || <CommunitiesSearchResults results={results} />} />
           <Route
             path="/c/:communityId"

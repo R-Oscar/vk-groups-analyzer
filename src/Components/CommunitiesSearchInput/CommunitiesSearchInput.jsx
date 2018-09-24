@@ -4,26 +4,25 @@ import PropTypes from 'prop-types';
 import './CommunitiesSearchInput.css';
 import TextField from '@material-ui/core/TextField';
 
-const CommunitiesSearchInput = ({ input, handler }) => (
+const CommunitiesSearchInput = ({ handler }) => (
   <fieldset className="search-field">
     <TextField
       label="Поиск сообществ"
       type="search"
       margin="normal"
       onChange={handler}
-      value={input}
+      // value=input
       className="search-field__input"
     />
-    {/* <DebounceInput className="search-field__input" value={input} onChange={handler} debounceTimeout={300} /> */}
   </fieldset>
 );
 
-CommunitiesSearchInput.defaultProps = {
-  input: '',
-};
+// CommunitiesSearchInput.defaultProps = {
+//   input: '',
+// };
 
 CommunitiesSearchInput.propTypes = {
-  input: PropTypes.string,
+  // input: PropTypes.string,
   handler: PropTypes.func.isRequired,
 };
 
