@@ -37,6 +37,7 @@ class App extends Component {
     // this.setState({
     //   input: e.target.value,
     // });
+    console.log(this.props);
 
     if (e.target.value === '') {
       this.setState({
@@ -46,7 +47,7 @@ class App extends Component {
     }
 
     /* eslint-disable */
-    const call = VK.Api.call(
+    VK.Api.call(
       'groups.search', 
       {
         q: e.target.value,
