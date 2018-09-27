@@ -13,14 +13,10 @@ import CommunityInfo from './Components/CommunityInfo/CommunityInfo';
 import { apiId, v } from './config';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      results: [],
-      // input: '',
-      inited: false,
-    };
-  }
+  state = {
+    results: [],
+    inited: false,
+  };
 
   componentDidMount() {
     /* eslint-disable */
@@ -37,7 +33,6 @@ class App extends Component {
     // this.setState({
     //   input: e.target.value,
     // });
-    console.log(this.props);
 
     if (e.target.value === '') {
       this.setState({
@@ -56,7 +51,7 @@ class App extends Component {
       },
       ({ response, error }) => {
         if (error) {
-          console.error(error);
+          return console.error(error);
         }
 
         const { count, items } = response;
@@ -89,7 +84,7 @@ class App extends Component {
       <Router>
         <div className="wrapper">
           <CssBaseline />
-          <CommunitiesSearchInput input={input} handler={this.debounceEvent(this.inputChange, 500)} />
+          <CommunitiesSearchInput handler={this.debounceEvent(this.inputChange, 500)} />
           { results.length > 0
             && <Route path="/" exact render={() => input === '' || <CommunitiesSearchResults results={results} />} />
           }
