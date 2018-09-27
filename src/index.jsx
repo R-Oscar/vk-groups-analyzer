@@ -33,12 +33,19 @@ class App extends Component {
     });
   }
 
-  handleInputChange = async (e) => {
+  inputChange = async (e) => {
     // this.setState({
     //   input: e.target.value,
     // });
 
     /* eslint-disable */
+    if (e.target.value === '') {
+      this.setState({
+        results: [],
+      });
+      return;
+    }
+
     VK.Api.call(
       'groups.search', 
       {
@@ -46,8 +53,11 @@ class App extends Component {
         count: 3,
         v,
       },
-      // TODO: добавить обработку ошибок
-      ({ response }) => {
+      ({ response, error }) => {
+        if (error) {
+          console.error(error);
+        }
+
         const { count, items } = response;
 
         this.setState({
@@ -58,7 +68,7 @@ class App extends Component {
               photo: item.photo_50,
             }
           )),
-        });
+        });  
       }
     );
     /* eslint-enable */
@@ -78,8 +88,10 @@ class App extends Component {
       <Router>
         <div className="wrapper">
           <CssBaseline />
-          <CommunitiesSearchInput input={input} handler={this.debounceEvent(this.handleInputChange, 500)} />
-          <Route path="/" exact render={() => input === '' || <CommunitiesSearchResults results={results} />} />
+          <CommunitiesSearchInput input={input} handler={this.debounceEvent(this.inputChange, 500)} />
+          { results.length > 0
+            && <Route path="/" exact render={() => input === '' || <CommunitiesSearchResults results={results} />} />
+          }
           <Route
             path="/c/:communityId"
             render={props => <CommunityInfo inited={inited} communityId={props.match.params.communityId} {...props} />}
