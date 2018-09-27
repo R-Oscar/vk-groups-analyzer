@@ -33,12 +33,11 @@ class App extends Component {
     });
   }
 
-  inputChange = async (e) => {
+  inputChange = (e) => {
     // this.setState({
     //   input: e.target.value,
     // });
 
-    /* eslint-disable */
     if (e.target.value === '') {
       this.setState({
         results: [],
@@ -46,7 +45,8 @@ class App extends Component {
       return;
     }
 
-    VK.Api.call(
+    /* eslint-disable */
+    const call = VK.Api.call(
       'groups.search', 
       {
         q: e.target.value,
