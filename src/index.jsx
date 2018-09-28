@@ -56,7 +56,7 @@ class AppContainer extends Component {
               photo: item.photo_50,
             }
           )),
-        }, () => console.log(this.state));  
+        });  
       }
     );
     /* eslint-enable */
