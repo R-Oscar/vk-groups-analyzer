@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import CssBaseline from '@material-ui/core/CssBaseline';
-import './index.css';
 import debounce from 'lodash.debounce';
 
-import CommunitiesSearchInput from './Components/CommunitiesSearchInput/CommunitiesSearchInput';
-import CommunitiesSearchResults from './Components/CommunitiesSearchResults/CommunitiesSearchResults';
-import CommunityInfo from './Components/CommunityInfo/CommunityInfo';
+import App from './Components/App/App';
 
 import { apiId, v } from './config';
 
-class App extends Component {
+class AppContainer extends Component {
   state = {
     results: [],
     inited: false,
@@ -30,10 +26,6 @@ class App extends Component {
   }
 
   inputChange = (e) => {
-    // this.setState({
-    //   input: e.target.value,
-    // });
-
     if (e.target.value === '') {
       this.setState({
         results: [],
@@ -64,7 +56,7 @@ class App extends Component {
               photo: item.photo_50,
             }
           )),
-        });  
+        }, () => console.log(this.state));  
       }
     );
     /* eslint-enable */
@@ -79,23 +71,17 @@ class App extends Component {
   }
 
   render() {
-    const { results, input, inited } = this.state;
+    const { results, inited } = this.state;
     return (
       <Router>
-        <div className="wrapper">
-          <CssBaseline />
-          <CommunitiesSearchInput handler={this.debounceEvent(this.inputChange, 500)} />
-          { results.length > 0
-            && <Route path="/" exact render={() => input === '' || <CommunitiesSearchResults results={results} />} />
-          }
-          <Route
-            path="/c/:communityId"
-            render={props => <CommunityInfo inited={inited} communityId={props.match.params.communityId} {...props} />}
-          />
-        </div>
+        <App
+          results={results}
+          inited={inited}
+          searchHandler={this.debounceEvent(this.inputChange, 500)}
+        />
       </Router>
     );
   }
 }
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+ReactDOM.render(<AppContainer />, document.querySelector('#root'));
