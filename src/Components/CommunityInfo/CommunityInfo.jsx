@@ -9,15 +9,19 @@ import './CommunityInfo.css';
 import { v } from '../../config';
 
 export default class CommunityInfo extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    community: {
+      name: '',
+      photo: '',
+    },
+  }
 
-    this.state = {
-      community: {
-        name: '',
-        photo: '',
-      },
-    };
+  static propTypes = {
+    communityId: PropTypes.string.isRequired,
+    history: PropTypes.shape({
+      goBack: PropTypes.func.isRequired,
+    }).isRequired,
+    inited: PropTypes.bool.isRequired,
   }
 
   componentDidMount() {
@@ -46,7 +50,6 @@ export default class CommunityInfo extends React.Component {
 
     return (
       <div>
-        {/* {communityId} */}
         <Typography variant="display4" gutterBottom>
           {community.name}
         </Typography>
@@ -56,15 +59,3 @@ export default class CommunityInfo extends React.Component {
     );
   }
 }
-
-// CommunityInfo.defaultProps = {
-//   match: {},
-// };
-
-CommunityInfo.propTypes = {
-  communityId: PropTypes.string.isRequired,
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
-  inited: PropTypes.bool.isRequired,
-};
