@@ -6,7 +6,7 @@ import './App.css';
 
 import CommunitiesSearchInput from '../CommunitiesSearchInput/CommunitiesSearchInput';
 import CommunitiesSearchResults from '../CommunitiesSearchResults/CommunitiesSearchResults';
-import CommunityInfo from '../CommunityInfo/CommunityInfo';
+import CommunityInfoContainer from '../CommunityInfo/CommunityInfoContainer';
 
 const App = ({
   results,
@@ -21,7 +21,13 @@ const App = ({
     }
     <Route
       path="/c/:communityId"
-      render={props => <CommunityInfo inited={inited} communityId={props.match.params.communityId} {...props} />}
+      render={props => (
+        <CommunityInfoContainer
+          inited={inited}
+          communityId={props.match.params.communityId}
+          {...props}
+        />
+      )}
     />
   </div>
 );
