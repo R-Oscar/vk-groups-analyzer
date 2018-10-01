@@ -5,8 +5,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css';
 
 import CommunitiesSearchInput from '../CommunitiesSearchInput/CommunitiesSearchInput';
-import CommunitiesSearchResults from '../CommunitiesSearchResults/CommunitiesSearchResults';
+// import CommunitiesSearchResults from '../CommunitiesSearchResults/CommunitiesSearchResults';
 import CommunityInfoContainer from '../CommunityInfo/CommunityInfoContainer';
+import CommunitiesSearchSuggestions from '../CommunitiesSearchSuggestions/CommunitiesSearchSuggestions';
 
 const App = ({
   results,
@@ -16,9 +17,10 @@ const App = ({
   <div className="wrapper">
     <CssBaseline />
     <CommunitiesSearchInput handler={searchHandler} />
-    { results.length > 0
-      && <Route path="/" exact render={() => <CommunitiesSearchResults results={results} />} />
-    }
+    <CommunitiesSearchSuggestions suggestions={results} />
+    {/* { results.length > 0 */}
+    {/*   && <Route path="/" exact render={() => <CommunitiesSearchResults results={results} />} /> */}
+    {/* } */}
     <Route
       path="/c/:communityId"
       render={props => (
