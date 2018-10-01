@@ -22,12 +22,10 @@ export default class CommunityInfoContainer extends React.Component {
     inited: PropTypes.bool.isRequired,
   }
 
-  static getDerivedStateFromProps(props, state) {
-    console.log('getDerivedStateFromProps');
-    if (state.lastId !== props.communityId) {
-      console.log(state.lastId, props.communityId);
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.lastId !== nextProps.communityId) {
       return {
-        lastId: props.communityId,
+        lastId: nextProps.communityId,
         community: {
           name: '',
           photo: '',
@@ -38,19 +36,8 @@ export default class CommunityInfoContainer extends React.Component {
     return null;
   }
 
-  async componentDidMount() {
-    /* eslint-disable */
-    try {
-      const { inited, communityId } = this.props;
-      inited || await this.initiate();
-      const community = await this.fetchCommunityInfo(communityId);
-      this.setState({
-        community,
-      });
-    } catch (e) {
-      console.error(e);
-    }
-    /* eslint-enable */
+  componentDidMount() {
+    this.loadCommunitiesAndSetState();
   }
 
   componentDidUpdate() {
@@ -93,8 +80,11 @@ export default class CommunityInfoContainer extends React.Component {
   });
 
   loadCommunitiesAndSetState = async () => {
-    const { communityId } = this.props;
     try {
+      const { inited, communityId } = this.props;
+      if (!inited) {
+        await this.initiate();
+      }
       const community = await this.fetchCommunityInfo(communityId);
       this.setState({
         community,
