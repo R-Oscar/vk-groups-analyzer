@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import CommunityInfo from './CommunityInfo';
 
-import { v } from '../../config';
+import { fetchCommunityInfo } from '../../vk-api';
 
 export default class CommunityInfoContainer extends React.Component {
   state = {
@@ -37,7 +37,10 @@ export default class CommunityInfoContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.loadCommunitiesAndSetState();
+    const { inited } = this.props;
+    if (inited) {
+      this.loadCommunitiesAndSetState();
+    }
   }
 
   componentDidUpdate() {
@@ -47,45 +50,10 @@ export default class CommunityInfoContainer extends React.Component {
     }
   }
 
-  fetchCommunityInfo = communityId => new Promise((resolve, reject) => {
-    /* eslint-disable */
-    VK.Api.call(
-      'groups.getById',
-      {
-        group_id: communityId,
-        v,
-      },
-      ({ error, response }) =>
-        (error ? reject(error) : resolve({
-          name: response[0].name,
-          photo: response[0].photo_200,
-        }))
-    );
-    /* eslint-enable */
-  });
-
-  initiate = () => new Promise((resolve, reject) => {
-    /* eslint-disable */
-    window.vkAsyncInit = () => VK.init({ apiId: 6673569 });
-
-    setTimeout(() => {
-      const el = document.createElement("script");
-      el.src = "https://vk.com/js/api/openapi.js?159";
-      el.async = true;
-      document.getElementById("vk_api_transport").appendChild(el);
-      el.onload = () => resolve();
-      el.onerror = () => reject();
-    }, 0);
-    /* eslint-enable */
-  });
-
   loadCommunitiesAndSetState = async () => {
     try {
-      const { inited, communityId } = this.props;
-      if (!inited) {
-        await this.initiate();
-      }
-      const community = await this.fetchCommunityInfo(communityId);
+      const { communityId } = this.props;
+      const community = await fetchCommunityInfo(communityId);
       this.setState({
         community,
       });

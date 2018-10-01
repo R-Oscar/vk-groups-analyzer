@@ -6,7 +6,7 @@ import debounce from 'lodash.debounce';
 
 import App from './Components/App/App';
 
-import { apiId, v } from './config';
+import { initiate, fetchCommunities } from './vk-api';
 
 class AppContainer extends Component {
   state = {
@@ -14,18 +14,23 @@ class AppContainer extends Component {
     inited: false,
   };
 
-  componentDidMount() {
-    /* eslint-disable */
-    VK.init({
-      apiId,
-    });
-    /* eslint-enable */
-    this.setState({
-      inited: true,
-    });
+  async componentDidMount() {
+    try {
+      await initiate();
+      this.setState({
+        inited: true,
+      });
+    } catch (e) {
+      if (e === 100) {
+        this.setState({
+          inited: true,
+        });
+      }
+      console.error(e);
+    }
   }
 
-  inputChange = (e) => {
+  inputChange = async (e) => {
     if (e.target.value === '') {
       this.setState({
         results: [],
@@ -33,33 +38,14 @@ class AppContainer extends Component {
       return;
     }
 
-    /* eslint-disable */
-    VK.Api.call(
-      'groups.search', 
-      {
-        q: e.target.value,
-        count: 3,
-        v,
-      },
-      ({ response, error }) => {
-        if (error) {
-          return console.error(error);
-        }
-
-        const { count, items } = response;
-
-        this.setState({
-          results: items.map(item => (
-            {
-              id: item.id,
-              name: item.name,
-              photo: item.photo_50,
-            }
-          )),
-        });  
-      }
-    );
-    /* eslint-enable */
+    try {
+      const results = await fetchCommunities(e.target.value, 3);
+      this.setState({
+        results,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   debounceEvent(...args) {
