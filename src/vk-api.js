@@ -8,7 +8,7 @@ export const initiate = () => new Promise((resolve, reject) => {
 
   setTimeout(() => {
     if (document.querySelector('script#vk')) {
-      return reject(100);
+      return reject();
     }
 
     const el = document.createElement("script");

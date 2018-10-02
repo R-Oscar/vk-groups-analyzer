@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import debounce from 'lodash.debounce';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
 import App from './Components/App/App';
 
@@ -12,6 +12,8 @@ class AppContainer extends Component {
   state = {
     results: [],
     inited: false,
+    suggestionsVisible: false,
+    searchInput: '',
   };
 
   async componentDidMount() {
@@ -21,16 +23,15 @@ class AppContainer extends Component {
         inited: true,
       });
     } catch (e) {
-      if (e === 100) {
-        this.setState({
-          inited: true,
-        });
-      }
       console.error(e);
     }
   }
 
   inputChange = async (e) => {
+    this.setState({
+      searchInput: e.target.value,
+    });
+
     if (e.target.value === '') {
       this.setState({
         results: [],
@@ -39,31 +40,44 @@ class AppContainer extends Component {
     }
 
     try {
-      const results = await fetchCommunities(e.target.value, 3);
+      const debouncedFetch = AwesomeDebouncePromise(fetchCommunities, 500);
+      const results = await debouncedFetch(e.target.value, 3);
       this.setState({
         results,
+        suggestionsVisible: true,
       });
     } catch (error) {
       console.error(error);
     }
   };
 
-  debounceEvent(...args) {
-    this.debouncedEvent = debounce(...args);
-    return (e) => {
-      e.persist();
-      return this.debouncedEvent(e);
-    };
+  focusHandler = () => {
+    console.log('focus');
   }
 
+  blurHandler = () => {
+    this.setState({
+      suggestionsVisible: false,
+    });
+  };
+
   render() {
-    const { results, inited } = this.state;
+    const {
+      results,
+      inited,
+      suggestionsVisible,
+      searchInput,
+    } = this.state;
     return (
       <Router>
         <App
           results={results}
           inited={inited}
-          searchHandler={this.debounceEvent(this.inputChange, 500)}
+          searchHandler={this.inputChange}
+          blurHandler={this.blurHandler}
+          focusHandler={this.focusHandler}
+          suggestionsVisible={suggestionsVisible}
+          searchInput={searchInput}
         />
       </Router>
     );

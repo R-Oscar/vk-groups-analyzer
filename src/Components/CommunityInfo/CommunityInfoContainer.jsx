@@ -7,7 +7,7 @@ import { fetchCommunityInfo } from '../../vk-api';
 
 export default class CommunityInfoContainer extends React.Component {
   state = {
-    lastId: -1, // stupid react pattern for getDerivedStateFromProps
+    lastId: -1,
     community: {
       name: '',
       photo: '',

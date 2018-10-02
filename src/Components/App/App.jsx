@@ -13,11 +13,20 @@ const App = ({
   results,
   inited,
   searchHandler,
+  blurHandler,
+  focusHandler,
+  suggestionsVisible,
+  searchInput,
 }) => (
   <div className="wrapper">
     <CssBaseline />
-    <CommunitiesSearchInput handler={searchHandler} />
-    <CommunitiesSearchSuggestions suggestions={results} />
+    <CommunitiesSearchInput
+      handler={searchHandler}
+      blurHandler={blurHandler}
+      focusHandler={focusHandler}
+      value={searchInput}
+    />
+    <CommunitiesSearchSuggestions suggestions={results} suggestionsVisible={suggestionsVisible} />
     {/* { results.length > 0 */}
     {/*   && <Route path="/" exact render={() => <CommunitiesSearchResults results={results} />} /> */}
     {/* } */}
@@ -37,6 +46,7 @@ const App = ({
 App.defaultProps = {
   results: [],
   inited: false,
+  searchInput: '',
 };
 
 App.propTypes = {
@@ -49,6 +59,10 @@ App.propTypes = {
   ),
   inited: PropTypes.bool,
   searchHandler: PropTypes.func.isRequired,
+  blurHandler: PropTypes.func.isRequired,
+  focusHandler: PropTypes.func.isRequired,
+  suggestionsVisible: PropTypes.bool.isRequired,
+  searchInput: PropTypes.string,
 };
 
 export default App;

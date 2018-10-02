@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 
-const CommunitiesSearchSuggestions = ({ suggestions }) => (
+const CommunitiesSearchSuggestions = ({ suggestions, suggestionsVisible }) => (
   <Paper>
-    {suggestions.map(
+    {suggestionsVisible && suggestions.map(
       suggestion => (
         <Link key={suggestion.id} to={`/c/${suggestion.id}`}>
           <MenuItem>
@@ -31,6 +31,7 @@ CommunitiesSearchSuggestions.propTypes = {
       // photo: PropTypes.string,
     }),
   ),
+  suggestionsVisible: PropTypes.bool.isRequired,
 };
 
 export default CommunitiesSearchSuggestions;
