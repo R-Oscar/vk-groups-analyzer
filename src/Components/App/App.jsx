@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css';
 
@@ -11,42 +12,70 @@ import CommunitiesSearchSuggestions from '../CommunitiesSearchSuggestions/Commun
 
 const App = ({
   results,
-  inited,
+  apiInited,
   searchHandler,
   blurHandler,
-  focusHandler,
   suggestionsVisible,
+  suggestionsClickHandler,
   searchInput,
+  redirect,
+  redirectId,
+  discardRedirect,
 }) => (
   <div className="wrapper">
     <CssBaseline />
     <CommunitiesSearchInput
       handler={searchHandler}
       blurHandler={blurHandler}
-      focusHandler={focusHandler}
       value={searchInput}
     />
-    <CommunitiesSearchSuggestions suggestions={results} suggestionsVisible={suggestionsVisible} />
+    <CommunitiesSearchSuggestions
+      suggestions={results}
+      suggestionsVisible={suggestionsVisible}
+      suggestionsClickHandler={suggestionsClickHandler}
+    />
     {/* { results.length > 0 */}
     {/*   && <Route path="/" exact render={() => <CommunitiesSearchResults results={results} />} /> */}
     {/* } */}
-    <Route
-      path="/c/:communityId"
-      render={props => (
-        <CommunityInfoContainer
-          inited={inited}
-          communityId={props.match.params.communityId}
-          {...props}
-        />
-      )}
-    />
+
+    {redirect ? (
+      <Redirect push to={{ pathname: `/c/${redirectId}` }} />
+    ) : (
+      <Route
+        path="/c/:communityId"
+        render={props => (
+          <CommunityInfoContainer
+            apiInited={apiInited}
+            communityId={props.match.params.communityId}
+            discardRedirect={discardRedirect}
+            {...props}
+          />
+        )}
+      />
+    )}
+    {/* <Switch>
+      <Route
+        path="/c/:communityId"
+        render={props => (
+          <CommunityInfoContainer
+            apiInited={apiInited}
+            communityId={props.match.params.communityId}
+            discardRedirect={discardRedirect}
+            {...props}
+          />
+        )}
+      />
+      {console.log(redirect)}
+      {redirect && <Redirect push to={{ pathname: `/c/${redirectId}` }} />}
+    </Switch> */}
   </div>
 );
 
 App.defaultProps = {
   results: [],
-  inited: false,
+  apiInited: false,
   searchInput: '',
+  redirect: false,
 };
 
 App.propTypes = {
@@ -57,12 +86,15 @@ App.propTypes = {
       photo: PropTypes.string,
     }),
   ),
-  inited: PropTypes.bool,
+  apiInited: PropTypes.bool,
   searchHandler: PropTypes.func.isRequired,
   blurHandler: PropTypes.func.isRequired,
-  focusHandler: PropTypes.func.isRequired,
   suggestionsVisible: PropTypes.bool.isRequired,
+  suggestionsClickHandler: PropTypes.func.isRequired,
   searchInput: PropTypes.string,
+  redirect: PropTypes.bool,
+  redirectId: PropTypes.number.isRequired,
+  discardRedirect: PropTypes.func.isRequired,
 };
 
 export default App;

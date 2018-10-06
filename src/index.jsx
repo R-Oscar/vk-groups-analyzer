@@ -11,16 +11,18 @@ import { initiate, fetchCommunities } from './vk-api';
 class AppContainer extends Component {
   state = {
     results: [],
-    inited: false,
+    apiInited: false,
     suggestionsVisible: false,
     searchInput: '',
+    redirect: false,
+    redirectId: -1,
   };
 
   async componentDidMount() {
     try {
       await initiate();
       this.setState({
-        inited: true,
+        apiInited: true,
       });
     } catch (e) {
       console.error(e);
@@ -51,34 +53,54 @@ class AppContainer extends Component {
     }
   };
 
-  focusHandler = () => {
-    console.log('focus');
-  }
-
   blurHandler = () => {
     this.setState({
       suggestionsVisible: false,
     });
   };
 
+  suggestionsClickHandler = (redirectId) => {
+    console.log('clicked!!!', redirectId);
+    this.setState({
+      redirect: true,
+      redirectId,
+    });
+  }
+
+  discardRedirect = () => {
+    this.setState({
+      redirect: false,
+      redirectId: -1,
+    });
+  }
+
   render() {
     const {
       results,
-      inited,
+      apiInited,
       suggestionsVisible,
       searchInput,
+      redirect,
+      redirectId,
     } = this.state;
+
     return (
       <Router>
-        <App
-          results={results}
-          inited={inited}
-          searchHandler={this.inputChange}
-          blurHandler={this.blurHandler}
-          focusHandler={this.focusHandler}
-          suggestionsVisible={suggestionsVisible}
-          searchInput={searchInput}
-        />
+        <>
+          <App
+            results={results}
+            apiInited={apiInited}
+            searchHandler={this.inputChange}
+            blurHandler={this.blurHandler}
+            focusHandler={this.focusHandler}
+            suggestionsVisible={suggestionsVisible}
+            suggestionsClickHandler={this.suggestionsClickHandler}
+            searchInput={searchInput}
+            redirect={redirect}
+            redirectId={redirectId}
+            discardRedirect={this.discardRedirect}
+          />
+        </>
       </Router>
     );
   }

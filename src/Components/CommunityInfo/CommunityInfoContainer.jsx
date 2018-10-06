@@ -7,7 +7,7 @@ import { fetchCommunityInfo } from '../../vk-api';
 
 export default class CommunityInfoContainer extends React.Component {
   state = {
-    lastId: -1,
+    lastCommunityId: -1,
     community: {
       name: '',
       photo: '',
@@ -19,13 +19,14 @@ export default class CommunityInfoContainer extends React.Component {
     history: PropTypes.shape({
       goBack: PropTypes.func.isRequired,
     }).isRequired,
-    inited: PropTypes.bool.isRequired,
+    apiInited: PropTypes.bool.isRequired,
+    discardRedirect: PropTypes.func.isRequired,
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.lastId !== nextProps.communityId) {
+    if (prevState.lastCommunityId !== nextProps.communityId) {
       return {
-        lastId: nextProps.communityId,
+        lastCommunityId: nextProps.communityId,
         community: {
           name: '',
           photo: '',
@@ -37,20 +38,20 @@ export default class CommunityInfoContainer extends React.Component {
   }
 
   componentDidMount() {
-    const { inited } = this.props;
-    if (inited) {
-      this.loadCommunitiesAndSetState();
+    const { apiInited } = this.props;
+    if (apiInited) {
+      this.loadCommunityAndSetState();
     }
   }
 
   componentDidUpdate() {
     const { community } = this.state;
     if (!community.name.length) {
-      this.loadCommunitiesAndSetState();
+      this.loadCommunityAndSetState();
     }
   }
 
-  loadCommunitiesAndSetState = async () => {
+  loadCommunityAndSetState = async () => {
     try {
       const { communityId } = this.props;
       const community = await fetchCommunityInfo(communityId);
@@ -63,9 +64,9 @@ export default class CommunityInfoContainer extends React.Component {
   };
 
   render() {
-    const { history } = this.props;
+    const { history, discardRedirect } = this.props;
     const { community } = this.state;
 
-    return <CommunityInfo history={history} community={community} />;
+    return <CommunityInfo history={history} community={community} discardRedirect={discardRedirect} />;
   }
 }
