@@ -1,8 +1,7 @@
-import { apiId, v } from './config';
 /* eslint-disable */
 export const initiate = () => new Promise((resolve, reject) => {
   window.vkAsyncInit = () => {
-    VK.init({ apiId });
+    VK.init({ apiId: process.env.API_ID });
     resolve();
   }
 
@@ -25,7 +24,7 @@ export const fetchCommunityInfo = communityId => new Promise((resolve, reject) =
     'groups.getById',
     {
       group_id: communityId,
-      v,
+      v: process.env.API_VERSION,
     },
     ({ error, response }) => (error ? reject(error) : resolve({
         name: response[0].name,
@@ -41,7 +40,7 @@ export const fetchCommunities = (q, count) => new Promise((resolve, reject) => {
     {
       q,
       count,
-      v,
+      v: process.env.API_VERSION,
     },
     ({ error, response }) => 
       (error ? reject(error) : resolve(response.items.map(community => (
