@@ -9,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const CommunitiesSearchResults = ({ results }) => (
+const SearchResults = ({ results }) => (
   <Paper>
     <Table>
       <TableHead>
@@ -36,11 +36,11 @@ const CommunitiesSearchResults = ({ results }) => (
   </Paper>
 );
 
-CommunitiesSearchResults.defaultProps = {
+SearchResults.defaultProps = {
   results: [],
 };
 
-CommunitiesSearchResults.propTypes = {
+SearchResults.propTypes = {
   results: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -50,4 +50,4 @@ CommunitiesSearchResults.propTypes = {
   ),
 };
 
-export default CommunitiesSearchResults;
+export default SearchResults;

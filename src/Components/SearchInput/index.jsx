@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './CommunitiesSearchInput.css';
+import './SearchInput.css';
 import TextField from '@material-ui/core/TextField';
 
-const CommunitiesSearchInput = ({
+const SearchInput = ({
   handler,
   blurHandler,
   value,
@@ -21,15 +21,14 @@ const CommunitiesSearchInput = ({
   </fieldset>
 );
 
-CommunitiesSearchInput.defaultProps = {
+SearchInput.defaultProps = {
   value: '',
 };
 
-CommunitiesSearchInput.propTypes = {
-  // input: PropTypes.string,
+SearchInput.propTypes = {
   handler: PropTypes.func.isRequired,
   blurHandler: PropTypes.func.isRequired,
   value: PropTypes.string,
 };
 
-export default CommunitiesSearchInput;
+export default SearchInput;

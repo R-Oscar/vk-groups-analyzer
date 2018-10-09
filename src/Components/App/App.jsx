@@ -4,10 +4,10 @@ import { Route } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css';
 
-import CommunitiesSearchInput from '../CommunitiesSearchInput/CommunitiesSearchInput';
-// import CommunitiesSearchResults from '../CommunitiesSearchResults/CommunitiesSearchResults';
-import CommunityInfoContainer from '../CommunityInfo/CommunityInfoContainer';
-import CommunitiesSearchSuggestions from '../CommunitiesSearchSuggestions/CommunitiesSearchSuggestions';
+import SearchInput from '../SearchInput';
+// import SearchResults from '../SearchResults';
+import CommunityInfoContainer from '../CommunityInfo';
+import SearchSuggestions from '../SearchSuggestions';
 
 const App = ({
   results,
@@ -15,21 +15,21 @@ const App = ({
   searchHandler,
   blurHandler,
   suggestionsVisible,
-  searchInput,
+  searchInputValue,
 }) => (
   <div className="wrapper">
     <CssBaseline />
-    <CommunitiesSearchInput
+    <SearchInput
       handler={searchHandler}
       blurHandler={blurHandler}
-      value={searchInput}
+      value={searchInputValue}
     />
-    <CommunitiesSearchSuggestions
+    <SearchSuggestions
       suggestions={results}
       suggestionsVisible={suggestionsVisible}
     />
     {/* { results.length > 0 */}
-    {/*   && <Route path="/" exact render={() => <CommunitiesSearchResults results={results} />} /> */}
+    {/*   && <Route path="/" exact render={() => <SearchResults results={results} />} /> */}
     {/* } */}
 
     <Route
@@ -48,7 +48,7 @@ const App = ({
 App.defaultProps = {
   results: [],
   apiInited: false,
-  searchInput: '',
+  searchInputValue: '',
 };
 
 App.propTypes = {
@@ -63,7 +63,7 @@ App.propTypes = {
   searchHandler: PropTypes.func.isRequired,
   blurHandler: PropTypes.func.isRequired,
   suggestionsVisible: PropTypes.bool.isRequired,
-  searchInput: PropTypes.string,
+  searchInputValue: PropTypes.string,
 };
 
 export default App;

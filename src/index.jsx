@@ -13,7 +13,7 @@ class AppContainer extends Component {
     results: [],
     apiInited: false,
     suggestionsVisible: false,
-    searchInput: '',
+    searchInputValue: '',
   };
 
   async componentDidMount() {
@@ -29,7 +29,7 @@ class AppContainer extends Component {
 
   inputChange = async (e) => {
     this.setState({
-      searchInput: e.target.value,
+      searchInputValue: e.target.value,
     });
 
     if (e.target.value === '') {
@@ -62,7 +62,7 @@ class AppContainer extends Component {
       results,
       apiInited,
       suggestionsVisible,
-      searchInput,
+      searchInputValue,
     } = this.state;
 
     return (
@@ -75,7 +75,7 @@ class AppContainer extends Component {
             blurHandler={this.blurHandler}
             focusHandler={this.focusHandler}
             suggestionsVisible={suggestionsVisible}
-            searchInput={searchInput}
+            searchInputValue={searchInputValue}
           />
         </>
       </Router>

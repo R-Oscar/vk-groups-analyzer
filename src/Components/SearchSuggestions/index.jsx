@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
-import CustomLink from '../CustomLink/CustomLink';
+import CustomLink from '../CustomLink';
 
-const CommunitiesSearchSuggestions = ({
+const SearchSuggestions = ({
   suggestions,
   suggestionsVisible,
 }) => (
@@ -21,11 +21,11 @@ const CommunitiesSearchSuggestions = ({
   </Paper>
 );
 
-CommunitiesSearchSuggestions.defaultProps = {
+SearchSuggestions.defaultProps = {
   suggestions: [],
 };
 
-CommunitiesSearchSuggestions.propTypes = {
+SearchSuggestions.propTypes = {
   suggestions: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -36,4 +36,4 @@ CommunitiesSearchSuggestions.propTypes = {
   suggestionsVisible: PropTypes.bool.isRequired,
 };
 
-export default CommunitiesSearchSuggestions;
+export default SearchSuggestions;
