@@ -20,7 +20,6 @@ export default class CommunityInfoContainer extends React.Component {
       goBack: PropTypes.func.isRequired,
     }).isRequired,
     apiInited: PropTypes.bool.isRequired,
-    discardRedirect: PropTypes.func.isRequired,
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -64,9 +63,9 @@ export default class CommunityInfoContainer extends React.Component {
   };
 
   render() {
-    const { history, discardRedirect } = this.props;
+    const { history } = this.props;
     const { community } = this.state;
 
-    return <CommunityInfo history={history} community={community} discardRedirect={discardRedirect} />;
+    return <CommunityInfo history={history} community={community} />;
   }
 }

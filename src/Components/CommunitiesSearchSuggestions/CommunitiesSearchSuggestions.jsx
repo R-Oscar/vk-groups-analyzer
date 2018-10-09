@@ -1,24 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import { Link } from 'react-router-dom';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
+import CustomLink from '../CustomLink/CustomLink';
 
 const CommunitiesSearchSuggestions = ({
   suggestions,
   suggestionsVisible,
-  suggestionsClickHandler,
 }) => (
   <Paper>
     {suggestionsVisible
     && suggestions.map(suggestion => (
-      <MenuItem
-        key={suggestion.id}
-        onMouseDown={() => suggestionsClickHandler(suggestion.id)}
-      >
-        {suggestion.name}
-      </MenuItem>
+      <CustomLink key={suggestion.id} to={`/c/${suggestion.id}`}>
+        <MenuItem>
+          {suggestion.name}
+        </MenuItem>
+      </CustomLink>
     ))}
   </Paper>
 );
@@ -36,7 +34,6 @@ CommunitiesSearchSuggestions.propTypes = {
     }),
   ),
   suggestionsVisible: PropTypes.bool.isRequired,
-  suggestionsClickHandler: PropTypes.func.isRequired,
 };
 
 export default CommunitiesSearchSuggestions;

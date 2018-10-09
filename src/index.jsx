@@ -14,8 +14,6 @@ class AppContainer extends Component {
     apiInited: false,
     suggestionsVisible: false,
     searchInput: '',
-    redirect: false,
-    redirectId: -1,
   };
 
   async componentDidMount() {
@@ -59,29 +57,12 @@ class AppContainer extends Component {
     });
   };
 
-  suggestionsClickHandler = (redirectId) => {
-    console.log('clicked!!!', redirectId);
-    this.setState({
-      redirect: true,
-      redirectId,
-    });
-  }
-
-  discardRedirect = () => {
-    this.setState({
-      redirect: false,
-      redirectId: -1,
-    });
-  }
-
   render() {
     const {
       results,
       apiInited,
       suggestionsVisible,
       searchInput,
-      redirect,
-      redirectId,
     } = this.state;
 
     return (
@@ -94,11 +75,7 @@ class AppContainer extends Component {
             blurHandler={this.blurHandler}
             focusHandler={this.focusHandler}
             suggestionsVisible={suggestionsVisible}
-            suggestionsClickHandler={this.suggestionsClickHandler}
             searchInput={searchInput}
-            redirect={redirect}
-            redirectId={redirectId}
-            discardRedirect={this.discardRedirect}
           />
         </>
       </Router>

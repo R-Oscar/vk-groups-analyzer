@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import './CommunityInfo.css';
 
-const CommunityInfo = ({ history, community, discardRedirect }) => (
+const CommunityInfo = ({ history, community }) => (
   <div>
     <Typography variant="display4" gutterBottom>
       {community.name}
@@ -16,7 +16,6 @@ const CommunityInfo = ({ history, community, discardRedirect }) => (
       variant="contained"
       color="primary"
       onClick={() => {
-        discardRedirect();
         history.goBack();
       }}
       className="back-button"
@@ -32,7 +31,6 @@ CommunityInfo.propTypes = {
     name: PropTypes.string.isRequired,
     photo: PropTypes.string.isRequired,
   }).isRequired,
-  discardRedirect: PropTypes.func.isRequired,
 };
 
 export default CommunityInfo;
