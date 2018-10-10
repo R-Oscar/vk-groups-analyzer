@@ -14,6 +14,9 @@ const App = ({
   apiInited,
   searchHandler,
   blurHandler,
+  focusHandler,
+  tabKeyHandler,
+  suggestionsActiveElement,
   suggestionsVisible,
   searchInputValue,
 }) => (
@@ -22,11 +25,14 @@ const App = ({
     <SearchInput
       handler={searchHandler}
       blurHandler={blurHandler}
+      focusHandler={focusHandler}
+      tabKeyHandler={tabKeyHandler}
       value={searchInputValue}
     />
     <SearchSuggestions
       suggestions={results}
-      suggestionsVisible={suggestionsVisible}
+      activeElement={suggestionsActiveElement}
+      visible={suggestionsVisible}
     />
     {/* { results.length > 0 */}
     {/*   && <Route path="/" exact render={() => <SearchResults results={results} />} /> */}
@@ -49,6 +55,7 @@ App.defaultProps = {
   results: [],
   apiInited: false,
   searchInputValue: '',
+  suggestionsActiveElement: null,
 };
 
 App.propTypes = {
@@ -62,6 +69,9 @@ App.propTypes = {
   apiInited: PropTypes.bool,
   searchHandler: PropTypes.func.isRequired,
   blurHandler: PropTypes.func.isRequired,
+  focusHandler: PropTypes.func.isRequired,
+  tabKeyHandler: PropTypes.func.isRequired,
+  suggestionsActiveElement: PropTypes.number,
   suggestionsVisible: PropTypes.bool.isRequired,
   searchInputValue: PropTypes.string,
 };

@@ -9,10 +9,16 @@ import App from './Components/App/App';
 import { initiate, fetchCommunities } from './vk-api';
 
 class AppContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.debouncedFetch = AwesomeDebouncePromise(fetchCommunities, 400);
+  }
+
   state = {
     results: [],
     apiInited: false,
     suggestionsVisible: false,
+    suggestionsActiveElement: null,
     searchInputValue: '',
   };
 
@@ -40,8 +46,7 @@ class AppContainer extends Component {
     }
 
     try {
-      const debouncedFetch = AwesomeDebouncePromise(fetchCommunities, 500);
-      const results = await debouncedFetch(e.target.value, 3);
+      const results = await this.debouncedFetch(e.target.value, 3);
       this.setState({
         results,
         suggestionsVisible: true,
@@ -57,11 +62,29 @@ class AppContainer extends Component {
     });
   };
 
+  focusHandler = () => {
+    const { searchInputValue } = this.state;
+    if (searchInputValue.length > 0) {
+      this.setState({
+        suggestionsVisible: true,
+      });
+    }
+  }
+
+  tabKeyHandler = (event) => {
+    if (event.keyCode === 40) { // 40 = down arrow
+      console.log('down key pressed');
+    } else if (event.keyCode === 38) { // 38 = up arrow
+      console.log('up key pressed');
+    }
+  }
+
   render() {
     const {
       results,
       apiInited,
       suggestionsVisible,
+      suggestionsActiveElement,
       searchInputValue,
     } = this.state;
 
@@ -74,7 +97,9 @@ class AppContainer extends Component {
             searchHandler={this.inputChange}
             blurHandler={this.blurHandler}
             focusHandler={this.focusHandler}
+            tabKeyHandler={this.tabKeyHandler}
             suggestionsVisible={suggestionsVisible}
+            suggestionsActiveElement={suggestionsActiveElement}
             searchInputValue={searchInputValue}
           />
         </>

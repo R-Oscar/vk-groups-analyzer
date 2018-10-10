@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 const SearchInput = ({
   handler,
   blurHandler,
+  focusHandler,
+  tabKeyHandler,
   value,
 }) => (
   <fieldset className="search-field">
@@ -15,6 +17,8 @@ const SearchInput = ({
       margin="normal"
       onChange={handler}
       onBlur={blurHandler}
+      onFocus={focusHandler}
+      onKeyDown={tabKeyHandler}
       value={value}
       className="search-field__input"
     />
@@ -28,6 +32,8 @@ SearchInput.defaultProps = {
 SearchInput.propTypes = {
   handler: PropTypes.func.isRequired,
   blurHandler: PropTypes.func.isRequired,
+  focusHandler: PropTypes.func.isRequired,
+  tabKeyHandler: PropTypes.func.isRequired,
   value: PropTypes.string,
 };
 

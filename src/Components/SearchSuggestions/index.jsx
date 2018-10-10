@@ -5,12 +5,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 import CustomLink from '../CustomLink';
 
-const SearchSuggestions = ({
-  suggestions,
-  suggestionsVisible,
-}) => (
+const SearchSuggestions = ({ activeElement, suggestions, visible }) => (
   <Paper>
-    {suggestionsVisible
+    {visible
     && suggestions.map(suggestion => (
       <CustomLink key={suggestion.id} to={`/c/${suggestion.id}`}>
         <MenuItem>
@@ -22,10 +19,12 @@ const SearchSuggestions = ({
 );
 
 SearchSuggestions.defaultProps = {
+  activeElement: null,
   suggestions: [],
 };
 
 SearchSuggestions.propTypes = {
+  activeElement: PropTypes.number,
   suggestions: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -33,7 +32,7 @@ SearchSuggestions.propTypes = {
       // photo: PropTypes.string,
     }),
   ),
-  suggestionsVisible: PropTypes.bool.isRequired,
+  visible: PropTypes.bool.isRequired,
 };
 
 export default SearchSuggestions;
