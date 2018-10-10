@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 export default class CustomLink extends Component {
   static propTypes = {
     to: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
-  }
+    children: PropTypes.node.isRequired
+  };
 
   handleMouseDown = event => event.preventDefault();
 
@@ -16,7 +16,7 @@ export default class CustomLink extends Component {
     const { to, children } = this.props;
 
     return (
-      <Link to={to} onMouseDown={this.handleMouseDown} onClick={this.handleClick}>
+      <Link to={to} onMouseDown={this.handleMouseDown} onClick={this.handleClick} {...this.props}>
         {children}
       </Link>
     );

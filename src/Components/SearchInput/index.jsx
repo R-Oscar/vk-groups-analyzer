@@ -3,13 +3,7 @@ import PropTypes from 'prop-types';
 import './SearchInput.css';
 import TextField from '@material-ui/core/TextField';
 
-const SearchInput = ({
-  handler,
-  blurHandler,
-  focusHandler,
-  tabKeyHandler,
-  value,
-}) => (
+const SearchInput = ({ handler, blurHandler, focusHandler, tabKeyHandler, value }) => (
   <fieldset className="search-field">
     <TextField
       label="Поиск сообществ"
@@ -26,7 +20,7 @@ const SearchInput = ({
 );
 
 SearchInput.defaultProps = {
-  value: '',
+  value: ''
 };
 
 SearchInput.propTypes = {
@@ -34,7 +28,7 @@ SearchInput.propTypes = {
   blurHandler: PropTypes.func.isRequired,
   focusHandler: PropTypes.func.isRequired,
   tabKeyHandler: PropTypes.func.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.string
 };
 
 export default SearchInput;

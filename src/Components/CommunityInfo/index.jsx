@@ -10,17 +10,17 @@ export default class CommunityInfoContainer extends React.Component {
     lastCommunityId: -1,
     community: {
       name: '',
-      photo: '',
-    },
-  }
+      photo: ''
+    }
+  };
 
   static propTypes = {
     communityId: PropTypes.string.isRequired,
     history: PropTypes.shape({
-      goBack: PropTypes.func.isRequired,
+      goBack: PropTypes.func.isRequired
     }).isRequired,
-    apiInited: PropTypes.bool.isRequired,
-  }
+    apiInited: PropTypes.bool.isRequired
+  };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.lastCommunityId !== nextProps.communityId) {
@@ -28,8 +28,8 @@ export default class CommunityInfoContainer extends React.Component {
         lastCommunityId: nextProps.communityId,
         community: {
           name: '',
-          photo: '',
-        },
+          photo: ''
+        }
       };
     }
 
@@ -55,7 +55,7 @@ export default class CommunityInfoContainer extends React.Component {
       const { communityId } = this.props;
       const community = await fetchCommunityInfo(communityId);
       this.setState({
-        community,
+        community
       });
     } catch (e) {
       console.error(e);

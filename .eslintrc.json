@@ -1,15 +1,15 @@
 {
-  "rules": {
-    "strict": 0
-  },
-  "extends": "airbnb",
+  "extends": ["airbnb", "prettier"],
   "env": {
     "browser": true
   },
   "parser": "babel-eslint",
   "rules": {
+    "prettier/prettier": ["error"],
     "linebreak-style": ["error", "windows"],
     "react/prefer-stateless-function": [1],
-    "max-len": ["error", { "code": 120 }]
-  }
+    "max-len": ["error", { "code": 120 }],
+    "no-console": ["warn", { "allow": ["warn", "error"] }]
+  },
+  "plugins": ["prettier"]
 }

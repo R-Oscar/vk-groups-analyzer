@@ -18,7 +18,7 @@ const App = ({
   tabKeyHandler,
   suggestionsActiveElement,
   suggestionsVisible,
-  searchInputValue,
+  searchInputValue
 }) => (
   <div className="wrapper">
     <CssBaseline />
@@ -55,7 +55,7 @@ App.defaultProps = {
   results: [],
   apiInited: false,
   searchInputValue: '',
-  suggestionsActiveElement: null,
+  suggestionsActiveElement: null
 };
 
 App.propTypes = {
@@ -63,8 +63,8 @@ App.propTypes = {
     PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string,
-      photo: PropTypes.string,
-    }),
+      photo: PropTypes.string
+    })
   ),
   apiInited: PropTypes.bool,
   searchHandler: PropTypes.func.isRequired,
@@ -73,7 +73,7 @@ App.propTypes = {
   tabKeyHandler: PropTypes.func.isRequired,
   suggestionsActiveElement: PropTypes.number,
   suggestionsVisible: PropTypes.bool.isRequired,
-  searchInputValue: PropTypes.string,
+  searchInputValue: PropTypes.string
 };
 
 export default App;

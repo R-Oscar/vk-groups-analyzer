@@ -19,28 +19,28 @@ class AppContainer extends Component {
     apiInited: false,
     suggestionsVisible: false,
     suggestionsActiveElement: null,
-    searchInputValue: '',
+    searchInputValue: ''
   };
 
   async componentDidMount() {
     try {
       await initiate();
       this.setState({
-        apiInited: true,
+        apiInited: true
       });
     } catch (e) {
       console.error(e);
     }
   }
 
-  inputChange = async (e) => {
+  inputChange = async e => {
     this.setState({
-      searchInputValue: e.target.value,
+      searchInputValue: e.target.value
     });
 
     if (e.target.value === '') {
       this.setState({
-        results: [],
+        results: []
       });
       return;
     }
@@ -49,7 +49,7 @@ class AppContainer extends Component {
       const results = await this.debouncedFetch(e.target.value, 3);
       this.setState({
         results,
-        suggestionsVisible: true,
+        suggestionsVisible: true
       });
     } catch (error) {
       console.error(error);
@@ -58,7 +58,7 @@ class AppContainer extends Component {
 
   blurHandler = () => {
     this.setState({
-      suggestionsVisible: false,
+      suggestionsVisible: false
     });
   };
 
@@ -66,18 +66,21 @@ class AppContainer extends Component {
     const { searchInputValue } = this.state;
     if (searchInputValue.length > 0) {
       this.setState({
-        suggestionsVisible: true,
+        suggestionsVisible: true
       });
     }
-  }
+  };
 
-  tabKeyHandler = (event) => {
-    if (event.keyCode === 40) { // 40 = down arrow
-      console.log('down key pressed');
-    } else if (event.keyCode === 38) { // 38 = up arrow
-      console.log('up key pressed');
+  tabKeyHandler = event => {
+    if (event.keyCode === 40) {
+      // 40 = down arrow
+      this.setState(state => ({
+        suggestionsActiveElement: state.suggestionsActiveElement + 1
+      }));
+    } else if (event.keyCode === 38) {
+      // 38 = up arrow
     }
-  }
+  };
 
   render() {
     const {
@@ -85,7 +88,7 @@ class AppContainer extends Component {
       apiInited,
       suggestionsVisible,
       suggestionsActiveElement,
-      searchInputValue,
+      searchInputValue
     } = this.state;
 
     return (

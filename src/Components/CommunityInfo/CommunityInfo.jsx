@@ -29,8 +29,8 @@ CommunityInfo.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
   community: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    photo: PropTypes.string.isRequired,
-  }).isRequired,
+    photo: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default CommunityInfo;
