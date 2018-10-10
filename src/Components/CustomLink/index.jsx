@@ -10,13 +10,23 @@ export default class CustomLink extends Component {
 
   handleMouseDown = event => event.preventDefault();
 
-  handleClick = event => event.target.focus();
+  handleClick = event => this.findAnchorElement(event.target).focus();
+
+  findAnchorElement = element => {
+    if (element.nodeName === 'A') return element;
+    return this.findAnchorElement(element.parentElement);
+  };
 
   render() {
     const { to, children } = this.props;
 
     return (
-      <Link to={to} onMouseDown={this.handleMouseDown} onClick={this.handleClick} {...this.props}>
+      <Link
+        to={to}
+        onMouseDownCapture={this.handleMouseDown}
+        onClickCapture={this.handleClick}
+        {...this.props}
+      >
         {children}
       </Link>
     );

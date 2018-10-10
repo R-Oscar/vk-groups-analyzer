@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import List from '@material-ui/core/List';
-import MenuItem from '@material-ui/core/MenuItem';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import CustomLink from '../CustomLink';
 
@@ -11,21 +12,16 @@ const SearchSuggestions = ({ activeElement, suggestions, visible }) => (
     {visible && (
       <List>
         {suggestions.map((suggestion, index) => (
-          <MenuItem
-            key={suggestion.id}
-            to={`/c/${suggestion.id}`}
-            className={activeElement === index ? 'hover' : ''}
-            component={CustomLink}
-          >
-            {suggestion.name}
-          </MenuItem>
-          // <CustomLink
-          //   key={suggestion.id}
-          //   to={`/c/${suggestion.id}`}
-          //   className={activeElement === index ? 'hover' : ''}
-          // >
-          //   <MenuItem>{suggestion.name}</MenuItem>
-          // </CustomLink>
+          <li key={suggestion.id}>
+            <ListItem
+              button
+              component={CustomLink}
+              to={`/c/${suggestion.id}`}
+              className={activeElement === index ? 'hover' : ''}
+            >
+              <ListItemText component="a" primary={suggestion.name} />
+            </ListItem>
+          </li>
         ))}
       </List>
     )}
