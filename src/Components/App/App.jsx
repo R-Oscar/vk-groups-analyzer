@@ -5,20 +5,22 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css';
 
 import SearchInput from '../SearchInput';
-// import SearchResults from '../SearchResults';
+import SearchResults from '../SearchResults';
 import CommunityInfoContainer from '../CommunityInfo';
 import SearchSuggestions from '../SearchSuggestions';
 
 const App = ({
-  results,
   apiInited,
   searchHandler,
   blurHandler,
   focusHandler,
-  tabKeyHandler,
+  keyDownHandler,
   suggestionsActiveElement,
+  suggestionsResults,
   suggestionsVisible,
-  searchInputValue
+  searchInputValue,
+  searchResults,
+  searchResultsVisible
 }) => (
   <div className="wrapper">
     <CssBaseline />
@@ -26,17 +28,20 @@ const App = ({
       handler={searchHandler}
       blurHandler={blurHandler}
       focusHandler={focusHandler}
-      tabKeyHandler={tabKeyHandler}
+      keyDownHandler={keyDownHandler}
       value={searchInputValue}
     />
     <SearchSuggestions
-      suggestions={results}
+      suggestions={suggestionsResults}
       activeElement={suggestionsActiveElement}
       visible={suggestionsVisible}
     />
-    {/* { results.length > 0 */}
-    {/*   && <Route path="/" exact render={() => <SearchResults results={results} />} /> */}
-    {/* } */}
+
+    <Route
+      path="/"
+      exact
+      render={() => <SearchResults results={searchResults} visible={searchResultsVisible} />}
+    />
 
     <Route
       path="/c/:communityId"
@@ -52,28 +57,37 @@ const App = ({
 );
 
 App.defaultProps = {
-  results: [],
   apiInited: false,
   searchInputValue: '',
+  searchResults: [],
+  suggestionsResults: [],
   suggestionsActiveElement: null
 };
 
 App.propTypes = {
-  results: PropTypes.arrayOf(
+  apiInited: PropTypes.bool,
+  searchHandler: PropTypes.func.isRequired,
+  blurHandler: PropTypes.func.isRequired,
+  focusHandler: PropTypes.func.isRequired,
+  keyDownHandler: PropTypes.func.isRequired,
+  suggestionsResults: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string,
       photo: PropTypes.string
     })
   ),
-  apiInited: PropTypes.bool,
-  searchHandler: PropTypes.func.isRequired,
-  blurHandler: PropTypes.func.isRequired,
-  focusHandler: PropTypes.func.isRequired,
-  tabKeyHandler: PropTypes.func.isRequired,
   suggestionsActiveElement: PropTypes.number,
   suggestionsVisible: PropTypes.bool.isRequired,
-  searchInputValue: PropTypes.string
+  searchInputValue: PropTypes.string,
+  searchResults: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      photo: PropTypes.string
+    })
+  ),
+  searchResultsVisible: PropTypes.bool.isRequired
 };
 
 export default App;

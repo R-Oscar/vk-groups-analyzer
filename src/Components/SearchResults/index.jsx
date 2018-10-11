@@ -9,35 +9,37 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const SearchResults = ({ results }) => (
-  <Paper>
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>Name</TableCell>
-          <TableCell>Avatar</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {results.map(
-          result => (
-            <TableRow key={result.id}>
-              <TableCell>
-                <Link to={`/c/${result.id}`}>{result.name}</Link>
-              </TableCell>
-              <TableCell>
-                <img src={result.photo} alt={result.name} />
-              </TableCell>
+const SearchResults = ({ results, visible }) => (
+  <>
+    {visible && (
+      <Paper>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Avatar</TableCell>
             </TableRow>
-          ),
-        )}
-      </TableBody>
-    </Table>
-  </Paper>
+          </TableHead>
+          <TableBody>
+            {results.map(result => (
+              <TableRow key={result.id}>
+                <TableCell>
+                  <Link to={`/c/${result.id}`}>{result.name}</Link>
+                </TableCell>
+                <TableCell>
+                  <img src={result.photo} alt={result.name} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Paper>
+    )}
+  </>
 );
 
 SearchResults.defaultProps = {
-  results: [],
+  results: []
 };
 
 SearchResults.propTypes = {
@@ -45,9 +47,10 @@ SearchResults.propTypes = {
     PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string,
-      photo: PropTypes.string,
-    }),
+      photo: PropTypes.string
+    })
   ),
+  visible: PropTypes.bool.isRequired
 };
 
 export default SearchResults;

@@ -3312,6 +3312,10 @@ jsx-ast-utils@^2.0.1:
   dependencies:
     array-includes "^3.0.3"
 
+keycode-js@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/keycode-js/-/keycode-js-1.0.2.tgz#3b8ed922c778ea82e8e146a3a53fe6d7373dedcf"
+
 keycode@^2.1.9:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/keycode/-/keycode-2.2.0.tgz#3d0af56dc7b8b8e5cba8d0a97f107204eec22b04"

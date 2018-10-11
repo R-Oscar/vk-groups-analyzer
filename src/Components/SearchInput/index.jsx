@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './SearchInput.css';
 import TextField from '@material-ui/core/TextField';
 
-const SearchInput = ({ handler, blurHandler, focusHandler, tabKeyHandler, value }) => (
+const SearchInput = ({ handler, blurHandler, focusHandler, keyDownHandler, value }) => (
   <fieldset className="search-field">
     <TextField
       label="Поиск сообществ"
@@ -12,7 +12,7 @@ const SearchInput = ({ handler, blurHandler, focusHandler, tabKeyHandler, value 
       onChange={handler}
       onBlur={blurHandler}
       onFocus={focusHandler}
-      onKeyDown={tabKeyHandler}
+      onKeyDown={keyDownHandler}
       value={value}
       className="search-field__input"
     />
@@ -27,7 +27,7 @@ SearchInput.propTypes = {
   handler: PropTypes.func.isRequired,
   blurHandler: PropTypes.func.isRequired,
   focusHandler: PropTypes.func.isRequired,
-  tabKeyHandler: PropTypes.func.isRequired,
+  keyDownHandler: PropTypes.func.isRequired,
   value: PropTypes.string
 };
 

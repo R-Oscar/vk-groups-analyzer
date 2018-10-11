@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import { KEY_RETURN, KEY_UP, KEY_DOWN } from 'keycode-js';
 
 import App from './Components/App/App';
 
@@ -15,11 +16,13 @@ class AppContainer extends Component {
   }
 
   state = {
-    results: [],
     apiInited: false,
+    suggestionsResults: [],
     suggestionsVisible: false,
     suggestionsActiveElement: null,
-    searchInputValue: ''
+    searchInputValue: '',
+    searchResults: [],
+    searchResultsVisible: false
   };
 
   async componentDidMount() {
@@ -40,15 +43,15 @@ class AppContainer extends Component {
 
     if (e.target.value === '') {
       this.setState({
-        results: []
+        suggestionsResults: []
       });
       return;
     }
 
     try {
-      const results = await this.debouncedFetch(e.target.value, 3);
+      const suggestionsResults = await this.debouncedFetch(e.target.value, 3);
       this.setState({
-        results,
+        suggestionsResults,
         suggestionsVisible: true
       });
     } catch (error) {
@@ -71,39 +74,64 @@ class AppContainer extends Component {
     }
   };
 
-  tabKeyHandler = event => {
-    if (event.keyCode === 40) {
-      // 40 = down arrow
+  keyDownHandler = event => {
+    if (event.keyCode === KEY_DOWN) {
       this.setState(state => ({
         suggestionsActiveElement: state.suggestionsActiveElement + 1
       }));
-    } else if (event.keyCode === 38) {
-      // 38 = up arrow
+    } else if (event.keyCode === KEY_UP) {
+      // TODO
+    } else if (event.keyCode === KEY_RETURN) {
+      this.setState({
+        suggestionsVisible: false
+      });
+
+      this.fetchSearchResults();
+    }
+  };
+
+  fetchSearchResults = async () => {
+    const { searchInputValue } = this.state;
+
+    if (searchInputValue === '') return;
+
+    try {
+      const searchResults = await this.debouncedFetch(searchInputValue, 10);
+      this.setState({
+        searchResults,
+        searchResultsVisible: true
+      });
+    } catch (error) {
+      console.error(error);
     }
   };
 
   render() {
     const {
-      results,
       apiInited,
+      suggestionsResults,
       suggestionsVisible,
       suggestionsActiveElement,
-      searchInputValue
+      searchInputValue,
+      searchResults,
+      searchResultsVisible
     } = this.state;
 
     return (
       <Router>
         <>
           <App
-            results={results}
             apiInited={apiInited}
             searchHandler={this.inputChange}
             blurHandler={this.blurHandler}
             focusHandler={this.focusHandler}
-            tabKeyHandler={this.tabKeyHandler}
+            keyDownHandler={this.keyDownHandler}
+            suggestionsResults={suggestionsResults}
             suggestionsVisible={suggestionsVisible}
             suggestionsActiveElement={suggestionsActiveElement}
             searchInputValue={searchInputValue}
+            searchResults={searchResults}
+            searchResultsVisible={searchResultsVisible}
           />
         </>
       </Router>
